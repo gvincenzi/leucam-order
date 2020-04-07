@@ -1,0 +1,38 @@
+server:
+  port: 8882
+
+spring:
+  application:
+    name: leucam-order-service
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:h2:file:./data/leucam_order
+    driver-class-name: org.h2.Driver
+    platform: org.hibernate.dialect.H2Dialect
+    username: root
+    password:
+
+  rabbitmq :
+    addresses: amqp://***
+  cloud:
+    stream:
+      bindings:
+        userRegistrationChannel:
+          destination: leucam-user-registration
+        userCancellationChannel:
+          destination: leucam-user-cancellation
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8880/eureka
+
+api:
+  username:
+  password:
