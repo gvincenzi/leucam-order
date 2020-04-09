@@ -10,5 +10,5 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByProduct(Product product);
     List<Order> findAllByPaidFalse();
-    List<Order> findByUserAndProductActiveTrue(User user);
+    List<Order> findByUser(User user);
 }

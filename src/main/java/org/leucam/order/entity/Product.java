@@ -23,6 +23,8 @@ public class Product {
     @Column
     private String fileId;
     @Column
+    private String filePath;
+    @Column
     private Boolean active = Boolean.TRUE;
 
     @Override

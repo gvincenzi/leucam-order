@@ -37,7 +37,7 @@ public class OrderController {
     public ResponseEntity<List<Order>> findAllOrdersByUser(@PathVariable Long id){
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
-            return new ResponseEntity<>(orderRepository.findByUserAndProductActiveTrue(user.get()), HttpStatus.OK);
+            return new ResponseEntity<>(orderRepository.findByUser(user.get()), HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("ID %d does not exists",id), null);
         }
