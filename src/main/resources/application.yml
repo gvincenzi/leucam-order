@@ -23,6 +23,14 @@ spring:
           destination: leucam-user-registration
         userCancellationChannel:
           destination: leucam-user-cancellation
+        userOrderChannel:
+          destination: leucam-order-registration
+        orderCancellationChannel:
+          destination: leucam-order-cancellation
+        orderPaymentChannel:
+          destination: leucam-order-payment
+        orderPaymentConfirmationChannel:
+          destination: leucam-order-payment-confirmation
 
 eureka:
   instance:
