@@ -7,6 +7,7 @@ import org.leucam.order.entity.type.ColorType;
 import org.leucam.order.entity.type.FrontBackType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -37,6 +38,8 @@ public class Order {
     private String paymentExternalReference;
     @Column
     private LocalDateTime paymentExternalDateTime;
+    @Column
+    private BigDecimal amount;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="productId", nullable = false)
     private Product product;

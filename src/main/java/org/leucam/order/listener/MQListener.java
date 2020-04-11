@@ -28,6 +28,7 @@ public class MQListener {
             orderPersisted.get().setPaid(Boolean.TRUE);
             orderPersisted.get().setPaymentExternalReference(msg.getPaymentId());
             orderPersisted.get().setPaymentExternalDateTime(msg.getPaymentDateTime());
+            orderPersisted.get().setAmount(msg.getAmount());
             orderRepository.save(orderPersisted.get());
             Message<Order> msgToSend = MessageBuilder.withPayload(orderPersisted.get()).build();
             orderPaymentConfirmationChannel.send(msgToSend);
