@@ -46,4 +46,8 @@ public class Order {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id", nullable = false)
     private User user;
+    @Column
+    private LocalDateTime orderPreparationDate;
+    @Column
+    private LocalDateTime orderDeliveryDate;
 }

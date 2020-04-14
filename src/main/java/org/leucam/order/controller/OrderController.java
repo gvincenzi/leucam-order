@@ -3,6 +3,7 @@ package org.leucam.order.controller;
 import org.leucam.order.entity.Order;
 import org.leucam.order.entity.Product;
 import org.leucam.order.entity.User;
+import org.leucam.order.entity.type.ActionType;
 import org.leucam.order.repository.OrderRepository;
 import org.leucam.order.repository.ProductRepository;
 import org.leucam.order.repository.UserRepository;
@@ -15,7 +16,6 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +37,7 @@ public class OrderController {
     public ResponseEntity<List<Order>> findAllOrdersByUser(@PathVariable Long id){
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
-            return new ResponseEntity<>(orderRepository.findByUser(user.get()), HttpStatus.OK);
+            return new ResponseEntity<>(orderRepository.findByUserAndOrderDeliveryDateIsNull(user.get()), HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("ID %d does not exists",id), null);
         }
@@ -51,6 +51,16 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Order>> findOrderById(@PathVariable Long id){
         return new ResponseEntity<>(orderRepository.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/action/{actionType}/all")
+    public ResponseEntity<List<Order>> findAllOrdersByActionType(@PathVariable ActionType actionType){
+        return new ResponseEntity<>(orderRepository.findByActionType(actionType), HttpStatus.OK);
+    }
+
+    @GetMapping("/action/{actionType}")
+    public ResponseEntity<List<Order>> findOrdersByActionType(@PathVariable ActionType actionType){
+        return new ResponseEntity<>(orderRepository.findByActionTypeAndOrderDeliveryDateIsNull(actionType), HttpStatus.OK);
     }
 
     @PostMapping
