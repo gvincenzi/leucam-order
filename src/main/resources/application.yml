@@ -31,6 +31,8 @@ spring:
           destination: leucam-order-payment
         orderPaymentConfirmationChannel:
           destination: leucam-order-payment-confirmation
+        orderUpdateChannel:
+          destination: leucam-order-update
 
 eureka:
   instance:

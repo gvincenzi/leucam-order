@@ -32,6 +32,8 @@ public class OrderController {
     private MessageChannel userOrderChannel;
     @Autowired
     private MessageChannel orderCancellationChannel;
+    @Autowired
+    private MessageChannel orderUpdateChannel;
 
     @GetMapping("/users/{id}")
     public ResponseEntity<List<Order>> findAllOrdersByUser(@PathVariable Long id){
@@ -97,6 +99,10 @@ public class OrderController {
             order.setOrderId(id);
             order.setUser(orderPersisted.get().getUser());
             order.setProduct(orderPersisted.get().getProduct());
+
+            Message<Order> msg = MessageBuilder.withPayload(order).build();
+            orderUpdateChannel.send(msg);
+
             return new ResponseEntity<>(orderRepository.save(order), HttpStatus.ACCEPTED);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("ID %d does not exists",id), null);

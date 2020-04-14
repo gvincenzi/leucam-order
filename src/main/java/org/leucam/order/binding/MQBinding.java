@@ -10,6 +10,7 @@ public interface MQBinding {
     String USER_CANCELLATION = "userCancellationChannel";
     String USER_ORDER = "userOrderChannel";
     String ORDER_CANCELLATION = "orderCancellationChannel";
+    String ORDER_UPDATE = "orderUpdateChannel";
     String ORDER_PAYMENT = "orderPaymentChannel";
     String ORDER_PAYMENT_CONFIRMATION = "orderPaymentConfirmationChannel";
 
@@ -24,6 +25,9 @@ public interface MQBinding {
 
     @Output(ORDER_CANCELLATION)
     MessageChannel orderCancellationChannel();
+
+    @Output(ORDER_UPDATE)
+    MessageChannel orderUpdateChannel();
 
     @Input(ORDER_PAYMENT)
     SubscribableChannel orderPaymentChannel();
